@@ -3,11 +3,11 @@ import sbt._
 
 object Dependencies {
 
-  def akkaModule(module: String) = "com.typesafe.akka" %% s"akka-$module" % "2.4.19"
+  def akkaModule(module: String) = "com.typesafe.akka" %% s"akka-$module" % "2.5.16"
 
-  def swaggerModule(module: String) = ("io.swagger" % s"swagger-$module" % "1.5.16").exclude("com.google.guava", "guava")
+  def swaggerModule(module: String) = ("io.swagger" % s"swagger-$module" % "1.5.21").exclude("com.google.guava", "guava")
 
-  def akkaHttpModule(module: String) = "com.typesafe.akka" %% module % "10.0.9"
+  def akkaHttpModule(module: String) = "com.typesafe.akka" %% module % "10.1.4"
 
   def nettyModule(module: String) = "io.netty" % s"netty-$module" % "4.1.24.Final"
 
@@ -56,21 +56,21 @@ object Dependencies {
 
   lazy val http = Seq("core", "annotations", "models", "jaxrs").map(swaggerModule) ++ Seq(
     "io.swagger"                   %% "swagger-scala-module" % "1.0.4",
-    "com.github.swagger-akka-http" %% "swagger-akka-http"    % "0.9.2",
+    "com.github.swagger-akka-http" %% "swagger-akka-http"    % "0.14.0",
     akkaHttpModule("akka-http")
   )
 
   lazy val matcher = Seq(
     akkaModule("persistence"),
     akkaModule("persistence-tck") % "test",
-    "com.github.dnvriend"         %% "akka-persistence-inmemory" % "2.4.18.1" % "test",
+    "com.github.dnvriend"         %% "akka-persistence-inmemory" % "2.5.15.0" % "test",
     "org.ethereum"                % "leveldbjni-all" % "1.18.3"
   )
 
   lazy val metrics = Seq(
     kamonModule("core", "1.1.3"),
     kamonModule("system-metrics", "1.0.0"),
-    kamonModule("akka-2.4", "1.1.1"),
+    kamonModule("akka-2.5", "1.1.1"),
     kamonModule("influxdb", "1.0.1"),
     "org.influxdb" % "influxdb-java" % "2.11"
   ).map(_.exclude("org.asynchttpclient", "async-http-client"))

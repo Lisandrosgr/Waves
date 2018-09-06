@@ -40,10 +40,14 @@ class MatcherActorSpecification
     with PathMockFactory {
 
   val blockchain: Blockchain = stub[Blockchain]
+  (blockchain.assetDescription _)
+    .when(ByteStr.decodeBase58("BASE1").get)
+    .returns(Some(AssetDescription(PrivateKeyAccount(Array.empty), "Unknown".getBytes, Array.emptyByteArray, 8, false, 1, None, 0)))
+  (blockchain.assetDescription _)
+    .when(ByteStr.decodeBase58("BASE2").get)
+    .returns(Some(AssetDescription(PrivateKeyAccount(Array.empty), "Unknown".getBytes, Array.emptyByteArray, 8, false, 1, None, 0)))
 
-  val settings = matcherSettings.copy(
-    account = MatcherAccount.address,
-  )
+  val settings = matcherSettings.copy(account = MatcherAccount.address)
 
   val pairBuilder = new AssetPairBuilder(settings, blockchain)
 
